@@ -68,15 +68,20 @@
                  </li>
              </ul>
              <div class="container">
-                <button class="btn btn-primary" id="previous-button" disabled="true">
+                <button class="btn btn-primary" id="previous-button" disabled="true"
+                    onclick="previousQuestion();">
                     Previous
                 </button>
                 <button class="btn btn-primary" id="next-button"
                     disabled="true"
-                    onclick="updateQuestion();">
+                    onclick="nextQuestion();">
                     Next
                 </button>
-                <button class="btn btn-primary" id="submit-button" disabled="true">Submit</button>
+                <button class="btn btn-primary" id="submit-button"
+                    disabled="true"
+                    onclick="endQuizAndDisplayResult();">
+                    Submit
+                </button>
              </div>
          </div>
      </div>
@@ -90,12 +95,12 @@
                   </div>
                   <div class="modal-body">
                       Correct questions :
-                      <span id="display-correct-questions"></span>
+                      <span id="correct-answers"></span>
                       <p id="time-out"></p>
                   </div>
 
                   <div class="modal-footer">
-                      <a href="http://quiz.local/">
+                      <a href="http://quiz-game.local/">
                           <button type="button" class="btn btn-primary">
                               Restart The Quiz
                           </button>

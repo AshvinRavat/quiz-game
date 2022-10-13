@@ -3,10 +3,11 @@ $(document).ready(function () {
 });
 
 currentQuestionIndex = 0;
-secondsLeftToCompleteQuiz = 50;
+secondsLeftToCompleteQuiz = 60;
 isTimedOut = false;
 lastQuestionIndex = 0;
 userSelectedAnswers = [];
+
 
 const questions =
 [
@@ -74,6 +75,28 @@ function showCurrentQuestion() {
 
     document.getElementById("questions-title").innerHTML = questions[currentQuestionIndex]['question'];
 
+    var unCheckingAnswers = document.getElementsByName("options");
+
+    for (i = 0; i < unCheckingAnswers.length; i++) {
+        unCheckingAnswers[i].checked = false;
+    }
+
+    if (userSelectedAnswers.includes(questions[currentQuestionIndex]['correct_answer'])) {
+         document.getElementById("for-option1").checked = true;
+    }
+
+    if (userSelectedAnswers.includes(questions[currentQuestionIndex]['incorrect_answers'][0])) {
+         document.getElementById("for-option2").checked = true;
+    }
+
+    if (userSelectedAnswers.includes(questions[currentQuestionIndex]['incorrect_answers'][1])) {
+         document.getElementById("for-option3").checked = true;
+    }
+
+    if (userSelectedAnswers.includes(questions[currentQuestionIndex]['incorrect_answers'][2])) {
+         document.getElementById("for-option4").checked = true;
+    }
+
     document.getElementById("for-option1").value = questions[currentQuestionIndex]['correct_answer'];
     document.getElementById("option1").innerHTML = questions[currentQuestionIndex]['correct_answer'];
 
@@ -93,7 +116,7 @@ function startTimer() {
         secondsLeftToCompleteQuiz = secondsLeftToCompleteQuiz - 1;
            document.getElementById("timer").innerHTML = secondsLeftToCompleteQuiz;
 
-            if (secondsLeftToCompleteQuiz < 5) {
+            if (secondsLeftToCompleteQuiz < 1) {
                 clearInterval(quizTimer);
                 isTimedOut = true;
                 endQuizAndDisplayResult();
@@ -107,13 +130,25 @@ function endQuizAndDisplayResult() {
         $("#result-modal").modal('show')
     });
 
+    totalCorrectAnswers = 0;
     document.getElementById("question-container").style = "display: none";
 
     if (isTimedOut) {
         document.getElementById("time-out").innerHTML = "Your Timed Out !";
     }
+
+    submitAnswers();
+    clearInterval(quizTimer);
 }
 
+function submitAnswers() {
+    for (i = 0; i <= currentQuestionIndex; i++) {
+        if (questions[i]['correct_answer'] == userSelectedAnswers[i]) {
+            totalCorrectAnswers++;
+            document.getElementById("correct-answers").innerHTML = totalCorrectAnswers;
+        }
+    }
+}
 function setUserSelectedAnswer() {
     selectedAnswer = document.getElementsByName('options');
 
@@ -125,12 +160,33 @@ function setUserSelectedAnswer() {
 }
 
 function updateActionButtons() {
-    if (currentQuestionIndex < lastQuestionIndex) {
+    document.getElementById("previous-button").disabled = true;
+    document.getElementById("next-button").disabled = true;
+    document.getElementById("submit-button").disabled = true;
+
+    if (typeof userSelectedAnswers[currentQuestionIndex] !== 'undefined' && currentQuestionIndex < lastQuestionIndex) {
+        document.getElementById("next-button").disabled = false;
+    }
+
+    if (currentQuestionIndex > 0) {
+        document.getElementById("previous-button").disabled = false;
+    }
+
+    if (userSelectedAnswers.length == questions.length)
+    {
+        document.getElementById("submit-button").disabled = false;
         document.getElementById("next-button").disabled = false;
     }
 }
 
-function updateQuestion() {
+function nextQuestion() {
     currentQuestionIndex++;
+    updateActionButtons();
+    showCurrentQuestion();
+}
+
+function previousQuestion() {
+    currentQuestionIndex--;
+    updateActionButtons();
     showCurrentQuestion();
 }
