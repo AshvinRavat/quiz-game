@@ -7,7 +7,7 @@ secondsLeftToCompleteQuiz = 60;
 isTimedOut = false;
 lastQuestionIndex = 0;
 userSelectedAnswers = [];
-
+quizTimer = '';
 
 const questions =
 [
@@ -111,7 +111,7 @@ function showCurrentQuestion() {
 }
 
 function startTimer() {
-   var quizTimer = setInterval(
+   quizTimer = setInterval(
         function () {
         secondsLeftToCompleteQuiz = secondsLeftToCompleteQuiz - 1;
            document.getElementById("timer").innerHTML = secondsLeftToCompleteQuiz;
@@ -138,15 +138,15 @@ function endQuizAndDisplayResult() {
     }
 
     submitAnswers();
-    clearInterval(quizTimer);
+   clearInterval(quizTimer);
 }
 
 function submitAnswers() {
     for (i = 0; i <= currentQuestionIndex; i++) {
         if (questions[i]['correct_answer'] == userSelectedAnswers[i]) {
             totalCorrectAnswers++;
-            document.getElementById("correct-answers").innerHTML = totalCorrectAnswers;
         }
+        document.getElementById("correct-answers").innerHTML = totalCorrectAnswers;
     }
 }
 function setUserSelectedAnswer() {
