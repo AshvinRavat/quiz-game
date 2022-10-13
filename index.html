@@ -30,31 +30,39 @@
 
      <div class="question-container" id="question-container" style="display: none;">
          <div class="quiz-header ">
-             <p id="timer" class="text-end"></p>
+            <p id="timer" class="text-end"></p>
 
              <h2 id="questions-title"></h2>
              <ul>
                  <li>
                      <input type="radio" id="for-option1" class="answer"
                         name="options"
+                        onclick="setUserSelectedAnswer();
+                        updateActionButtons();"
                      >
                      <label for="for-option1" id="option1"></label>
                  </li>
                  <li>
                      <input type="radio" id="for-option2" class="answer"
                         name="options"
+                        onclick="setUserSelectedAnswer();
+                        updateActionButtons();"
                      >
                      <label for="for-option2" id="option2"></label>
                  </li>
                  <li>
                      <input type="radio" id="for-option3" class="answer"
                         name="options"
+                        onclick="setUserSelectedAnswer();
+                        updateActionButtons();"
                      >
                      <label for="for-option3" id="option3"></label>
                  </li>
                  <li>
                      <input type="radio" id="for-option4" class="answer"
-                        name="options";"
+                        name="options"
+                        onclick="setUserSelectedAnswer();
+                        updateActionButtons();"
                      >
                      <label for="for-option4" id="option4"></label>
                  </li>
@@ -64,7 +72,8 @@
                     Previous
                 </button>
                 <button class="btn btn-primary" id="next-button"
-                    disabled="true">
+                    disabled="true"
+                    onclick="updateQuestion();">
                     Next
                 </button>
                 <button class="btn btn-primary" id="submit-button" disabled="true">Submit</button>

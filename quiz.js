@@ -3,8 +3,10 @@ $(document).ready(function () {
 });
 
 currentQuestionIndex = 0;
-secondsLeftToCompleteQuiz = 10;
+secondsLeftToCompleteQuiz = 50;
 isTimedOut = false;
+lastQuestionIndex = 0;
+userSelectedAnswers = [];
 
 const questions =
 [
@@ -62,6 +64,7 @@ const questions =
 ]
 
 function startQuiz() {
+    lastQuestionIndex = questions.length - 1;
     document.getElementById("question-container").style = "display: block";
     showCurrentQuestion();
     startTimer();
@@ -109,4 +112,25 @@ function endQuizAndDisplayResult() {
     if (isTimedOut) {
         document.getElementById("time-out").innerHTML = "Your Timed Out !";
     }
+}
+
+function setUserSelectedAnswer() {
+    selectedAnswer = document.getElementsByName('options');
+
+    for (i = 0; i < selectedAnswer.length; i++) {
+        if (selectedAnswer[i].checked) {
+            userSelectedAnswers[currentQuestionIndex] = selectedAnswer[i].value;
+        }
+    }
+}
+
+function updateActionButtons() {
+    if (currentQuestionIndex < lastQuestionIndex) {
+        document.getElementById("next-button").disabled = false;
+    }
+}
+
+function updateQuestion() {
+    currentQuestionIndex++;
+    showCurrentQuestion();
 }
