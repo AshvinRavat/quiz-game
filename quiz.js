@@ -136,9 +136,8 @@ function endQuizAndDisplayResult() {
     if (isTimedOut) {
         document.getElementById("time-out").innerHTML = "Your Timed Out !";
     }
-
     submitAnswers();
-   clearInterval(quizTimer);
+    clearInterval(quizTimer);
 }
 
 function submitAnswers() {
@@ -175,7 +174,6 @@ function updateActionButtons() {
     if (userSelectedAnswers.length == questions.length)
     {
         document.getElementById("submit-button").disabled = false;
-        document.getElementById("next-button").disabled = false;
     }
 }
 
