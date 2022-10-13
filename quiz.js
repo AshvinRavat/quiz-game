@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 currentQuestionIndex = 0;
-// secondsLeftToCompleteQuiz = 10;
+secondsLeftToCompleteQuiz = 10;
 isTimedOut = false;
 
 const questions =
